@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ink&Ayat</title>
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#f8f4ef;
+      color:#111;
+      overflow-x:hidden;
+    }
+
+    /* FLOATING CART */
+
+    .floating-cart{
+      position:fixed;
+      right:25px;
+      bottom:25px;
+      width:70px;
+      height:70px;
+      background:#111;
+      color:white;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:28px;
+      cursor:pointer;
+      z-index:9999;
+      box-shadow:0 10px 30px rgba(0,0,0,0.25);
+      transition:0.3s;
+    }
+
+    .floating-cart:hover{
+      transform:scale(1.08);
+    }
+
+    #cart-count{
+      position:absolute;
+      top:-5px;
+      right:-5px;
+      width:28px;
+      height:28px;
+      background:#c79b45;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:14px;
+      font-weight:bold;
+      color:white;
+    }
+
+    /* HERO */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:40px 20px;
+      background:linear-gradient(to bottom,#f8f4ef,#efe7dd);
+    }
+
+    .logo{
+      width:320px;
+      max-width:90%;
+      margin-bottom:25px;
+    }
+
+    .brand-title{
+      font-family:'Cinzel', serif;
+      font-size:46px;
+      color:#c79b45;
+      margin-bottom:15px;
+      letter-spacing:2px;
+    }
+
+    .hero p{
+      max-width:750px;
+      line-height:1.8;
+      color:#555;
+      margin-bottom:40px;
+      font-size:16px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      justify-content:center;
+    }
+
+    .hero-buttons a{
+      text-decoration:none;
+      padding:15px 35px;
+      border-radius:50px;
+      font-weight:600;
+      transition:0.3s;
+      font-size:15px;
+    }
+
+    .gold-btn{
+      background:#c79b45;
+      color:white;
+    }
+
+    .gold-btn:hover{
+      background:#a87d2d;
+      transform:translateY(-3px);
+    }
+
+    .outline-btn{
+      border:2px solid #c79b45;
+      color:#c79b45;
+    }
+
+    .outline-btn:hover{
+      background:#c79b45;
+      color:white;
+    }
+
+    /* SECTION TITLE */
+
+    .section-title{
+      text-align:center;
+      font-size:42px;
+      margin-top:90px;
+      margin-bottom:50px;
+      font-family:'Cinzel', serif;
+      color:#111;
+    }
+
+    /* PRODUCTS */
+
+    .products{
+      width:90%;
+      margin:auto;
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:35px;
+      margin-bottom:90px;
+    }
+
+    .card{
+      background:white;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-7px);
+    }
+
+    .card img{
+      width:100%;
+      height:350px;
+      object-fit:cover;
+    }
+
+    .card-content{
+      padding:25px;
+    }
+
+    .card h3{
+      font-size:26px;
+      margin-bottom:10px;
+    }
+
+    .price{
+      color:#c79b45;
+      font-size:22px;
+      font-weight:700;
+      margin-bottom:15px;
+    }
+
+    .details{
+      color:#555;
+      line-height:1.7;
+      margin-bottom:20px;
+    }
+
+    .btns{
+      display:flex;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .btns button{
+      flex:1;
+      border:none;
+      padding:13px;
+      border-radius:12px;
+      cursor:pointer;
+      font-weight:600;
+      transition:0.3s;
+      font-size:15px;
+    }
+
+    .buy-btn{
+      background:#111;
+      color:white;
+    }
+
+    .buy-btn:hover{
+      background:#000;
+    }
+
+    .cart-btn{
+      background:#c79b45;
+      color:white;
+    }
+
+    .cart-btn:hover{
+      background:#a87d2d;
+    }
+
+    /* CART SECTION */
+
+    .cart-section{
+      width:90%;
+      margin:80px auto;
+      background:white;
+      border-radius:22px;
+      padding:40px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .cart-item{
+      display:flex;
+      align-items:center;
+      gap:20px;
+      border-bottom:1px solid #ddd;
+      padding-bottom:20px;
+      margin-bottom:20px;
+    }
+
+    .cart-item img{
+      width:120px;
+      height:120px;
+      object-fit:cover;
+      border-radius:15px;
+    }
+
+    .cart-item h3{
+      margin-bottom:8px;
+    }
+
+    .cart-total{
+      font-size:28px;
+      margin-top:30px;
+      color:#c79b45;
+      font-weight:700;
+    }
+
+    .confirm-btn{
+      margin-top:30px;
+      padding:15px 35px;
+      border:none;
+      background:#111;
+      color:white;
+      border-radius:50px;
+      font-size:16px;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .confirm-btn:hover{
+      background:#000;
+    }
+
+    /* CUSTOM SECTION */
+
+    .custom-section{
+      width:90%;
+      max-width:750px;
+      margin:100px auto;
+      background:white;
+      padding:50px;
+      border-radius:25px;
+      box-shadow:0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .custom-section h2{
+      text-align:center;
+      margin-bottom:35px;
+      font-size:38px;
+      font-family:'Cinzel', serif;
+    }
+
+    form{
+      display:flex;
+      flex-direction:column;
+      gap:20px;
+    }
+
+    input, select, textarea{
+      padding:15px;
+      border-radius:12px;
+      border:1px solid #ccc;
+      font-size:15px;
+      outline:none;
+    }
+
+    textarea{
+      resize:none;
+      height:130px;
+    }
+
+    .submit-btn{
+      background:#c79b45;
+      color:white;
+      border:none;
+      padding:15px;
+      border-radius:50px;
+      font-size:16px;
+      cursor:pointer;
+      font-weight:600;
+      transition:0.3s;
+    }
+
+    .submit-btn:hover{
+      background:#a87d2d;
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      color:#666;
+      font-size:14px;
+    }
+
+    /* MOBILE */
+
+    @media(max-width:768px){
+
+      .brand-title{
+        font-size:34px;
+      }
+
+      .section-title{
+        font-size:32px;
+      }
+
+      .cart-item{
+        flex-direction:column;
+        text-align:center;
+      }
+
+      .custom-section{
+        padding:30px 20px;
+      }
+
+      .floating-cart{
+        width:60px;
+        height:60px;
+        font-size:24px;
+        right:18px;
+        bottom:18px;
+      }
+
+      #cart-count{
+        width:24px;
+        height:24px;
+        font-size:12px;
+      }
+
+      .logo{
+        width:250px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- FLOATING CART -->
+
+  <div class="floating-cart" onclick="scrollToCart()">
+    🛒
+    <span id="cart-count">0</span>
+  </div>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <img src="logo.jpg" class="logo">
+
+    <h1 class="brand-title">Ink & Ayat</h1>
+
+    <p>
+      Elegant Arabic Calligraphy crafted with beauty, spirituality, and timeless luxury.
+      Explore our premium ready-made collection or customize your own masterpiece.
+    </p>
+
+    <div class="hero-buttons">
+      <a href="#products" class="gold-btn">Ready-made Buy</a>
+      <a href="#customize" class="outline-btn">Customize Order</a>
+    </div>
+
+  </section>
+
+  <!-- PRODUCTS -->
+
+  <h2 class="section-title" id="products">Ready-made Collection</h2>
+
+  <section class="products">
+
+    <!-- PRODUCT 1 -->
+
+    <div class="card">
+
+      <img src="dome.jpg">
+
+      <div class="card-content">
+
+        <h3>Dome Calligraphy</h3>
+
+        <div class="price">PKR 3000</div>
+
+        <p class="details">
+          Elegant Islamic dome-inspired artwork with luxurious detailing and premium finish.
+        </p>
+
+        <div class="btns">
+
+          <button class="buy-btn"
+          onclick="buyNow('Dome Calligraphy','3000')">
+          Buy Now
+          </button>
+
+          <button class="cart-btn"
+          onclick="addToCart('Dome Calligraphy',3000,'dome.jpg')">
+          Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PRODUCT 2 -->
+
+    <div class="card">
+
+      <img src="rainbow.jpg">
+
+      <div class="card-content">
+
+        <h3>Rainbow Calligraphy</h3>
+
+        <div class="price">PKR 3100</div>
+
+        <p class="details">
+          Vibrant colorful Arabic calligraphy artwork designed for modern Islamic interiors.
+        </p>
+
+        <div class="btns">
+
+          <button class="buy-btn"
+          onclick="buyNow('Rainbow Calligraphy','3100')">
+          Buy Now
+          </button>
+
+          <button class="cart-btn"
+          onclick="addToCart('Rainbow Calligraphy',3100,'rainbow.jpg')">
+          Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PRODUCT 3 -->
+
+    <div class="card">
+
+      <img src="kaaba.jpg">
+
+      <div class="card-content">
+
+        <h3>Kaaba Calligraphy</h3>
+
+        <div class="price">PKR 3000</div>
+
+        <p class="details">
+          Sacred Kaaba-inspired Arabic artwork with earthy tones and elegant aesthetics.
+        </p>
+
+        <div class="btns">
+
+          <button class="buy-btn"
+          onclick="buyNow('Kaaba Calligraphy','3000')">
+          Buy Now
+          </button>
+
+          <button class="cart-btn"
+          onclick="addToCart('Kaaba Calligraphy',3000,'kaaba.jpg')">
+          Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- PRODUCT 4 -->
+
+    <div class="card">
+
+      <img src="rahim.jpg">
+
+      <div class="card-content">
+
+        <h3>Al Rahim Calligraphy</h3>
+
+        <div class="price">PKR 6000</div>
+
+        <p class="details">
+          Premium luxury Arabic calligraphy frame with rich spiritual and artistic elegance.
+        </p>
+
+        <div class="btns">
+
+          <button class="buy-btn"
+          onclick="buyNow('Al Rahim Calligraphy','6000')">
+          Buy Now
+          </button>
+
+          <button class="cart-btn"
+          onclick="addToCart('Al Rahim Calligraphy',6000,'rahim.jpg')">
+          Add to Cart
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CART -->
+
+  <section class="cart-section">
+
+    <h2 class="section-title">Your Cart</h2>
+
+    <div id="cart-items"></div>
+
+    <div class="cart-total" id="total">
+      Total: PKR 0
+    </div>
+
+    <button class="confirm-btn" onclick="confirmOrder()">
+      Confirm Your Order
+    </button>
+
+  </section>
+
+  <!-- CUSTOMIZE -->
+
+  <section class="custom-section" id="customize">
+
+    <h2>Customize Your Order</h2>
+
+    <form>
+
+      <input type="text" id="name" placeholder="Your Name" required>
+
+      <input type="text" id="number" placeholder="WhatsApp Number" required>
+
+      <select id="customType">
+
+        <option>Customize Names</option>
+
+        <option>Customize Nikah Frame</option>
+
+        <option>Customize Verse Engraving</option>
+
+      </select>
+
+      <textarea id="message"
+      placeholder="Write your customization details here..."></textarea>
+
+      <button type="button"
+      class="submit-btn"
+      onclick="sendCustomOrder()">
+      Send on WhatsApp
+      </button>
+
+    </form>
+
+  </section>
+
+  <footer>
+    © 2025 Ink&Ayat — Premium Arabic Calligraphy
+  </footer>
+
+  <script>
+
+    let cart = [];
+
+    // BUY NOW
+
+    function buyNow(product, price){
+
+      let msg =
+      `Assalamualaikum, I want to buy:\n\n` +
+      `Product: ${product}\n` +
+      `Price: PKR ${price}`;
+
+      window.open(
+      `https://wa.me/923305532054?text=${encodeURIComponent(msg)}`,
+      '_blank'
+      );
+    }
+
+    // ADD TO CART
+
+    function addToCart(name, price, image){
+
+      cart.push({
+        name,
+        price,
+        image
+      });
+
+      renderCart();
+
+      document.getElementById('cart-count').innerText = cart.length;
+    }
+
+    // RENDER CART
+
+    function renderCart(){
+
+      let cartItems = document.getElementById('cart-items');
+
+      let total = 0;
+
+      cartItems.innerHTML = '';
+
+      cart.forEach(item => {
+
+        total += item.price;
+
+        cartItems.innerHTML += `
+
+        <div class="cart-item">
+
+          <img src="${item.image}">
+
+          <div>
+            <h3>${item.name}</h3>
+            <p>PKR ${item.price}</p>
+          </div>
+
+        </div>
+
+        `;
+      });
+
+      document.getElementById('total').innerText =
+      `Total: PKR ${total}`;
+    }
+
+    // CONFIRM ORDER
+
+    function confirmOrder(){
+
+      if(cart.length === 0) return;
+
+      let msg =
+      "Assalamualaikum, I want to confirm my order:%0A%0A";
+
+      let total = 0;
+
+      cart.forEach(item => {
+
+        msg += `• ${item.name} - PKR ${item.price}%0A`;
+
+        total += item.price;
+      });
+
+      msg += `%0ATotal Bill: PKR ${total}`;
+
+      window.open(
+      `https://wa.me/923305532054?text=${msg}`,
+      '_blank'
+      );
+    }
+
+    // CUSTOM ORDER
+
+    function sendCustomOrder(){
+
+      let name =
+      document.getElementById('name').value;
+
+      let number =
+      document.getElementById('number').value;
+
+      let type =
+      document.getElementById('customType').value;
+
+      let message =
+      document.getElementById('message').value;
+
+      let text =
+      `Assalamualaikum,%0A%0A` +
+      `Customize Order Request:%0A` +
+      `Name: ${name}%0A` +
+      `WhatsApp: ${number}%0A` +
+      `Customization Type: ${type}%0A` +
+      `Details: ${message}`;
+
+      window.open(
+      `https://wa.me/923305532054?text=${text}`,
+      '_blank'
+      );
+    }
+
+    // SCROLL TO CART
+
+    function scrollToCart(){
+
+      document.querySelector('.cart-section')
+      .scrollIntoView({
+        behavior:'smooth'
+      });
+    }
+
+  </script>
+
+</body>
+</html>
